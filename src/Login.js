@@ -59,7 +59,9 @@ const Login = () => {
         if(resultCode === "MBB03"){
           alert("パスワードが一致しません。");
         }
-
+        if(resultCode === "MBB17"){
+          alert("退会した会員です。");
+      }
 
       })
       .catch((error) => {

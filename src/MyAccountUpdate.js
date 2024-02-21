@@ -153,6 +153,11 @@ const MyAccountUpdate = () => {
     console.log('SEARCH BUTTON CLICK.');
   };
 
+  const handleDelete = () => {
+    window.location.href = '/myaccount/delete';
+    console.log('DELETE BUTTON CLICK.');
+  };
+
   return (
 
     <div className="app-container">
@@ -291,6 +296,7 @@ const MyAccountUpdate = () => {
           CONFIRM</button>
 
         <button type="button" onClick={handleGoBack}>GO BACK</button>
+        <button type="button" onClick={handleDelete}>DELETE</button>
     </div>
   );
 };

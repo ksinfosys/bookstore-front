@@ -2,18 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Header from './Header';
-
 import Join from './Join';
-
 import JoinJP from './JoinJP';
-
-
 import Login from './Login';
-
 import MyPage from './MyPage';
 import MyPageCheckPw from './MyPageCheckPw';
 import MyAccountUpdate from './MyAccountUpdate';
 import MyAccountPwUpdate from './MyAccountPwUpdate';
+import MyAccountDelete from './MyAccountDelete';
 
 const Home = () => <div>Home Page</div>;
 const Book = () => <div>Book Page</div>;
@@ -51,6 +47,8 @@ const App = () => {
           <Route path="/myaccount/update" element={<MyAccountUpdate />} />
 
           <Route path="/myaccount/passwordUpdate" element={<MyAccountPwUpdate />} />
+
+          <Route path="/myaccount/delete" element={<MyAccountDelete />} />
 
           <Route path="/cart" element={<Cart />} />
 
