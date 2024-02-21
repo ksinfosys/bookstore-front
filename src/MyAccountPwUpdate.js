@@ -27,7 +27,7 @@ const MyAccountPwUpdate = () => {
     });
   };
 
-  const confirm = () => {
+  const confirm = () => {    
     const requestData = {
           memberId: getCookie('memberId'),
           memberCookie: getCookie('memberCookie'),
@@ -104,6 +104,7 @@ const MyAccountPwUpdate = () => {
                 <input
                   type="password"
                   name="memberPassword"
+                  maxLength={15}
                   value={formData.memberPassword}
                   onChange={handleChange}
                 />
@@ -115,8 +116,9 @@ const MyAccountPwUpdate = () => {
                 <input
                   type="password"
                   name="memberPasswordRe"
+                  maxLength={15}
                   value={formData.memberPasswordRe}
-                  placeholder='8~16文字の英文、数字、特殊文字を組み合わせ'
+                  placeholder='8~15文字の英文、数字、特殊文字を組み合わせ'
                   onChange={handleChange}
                 />
               </td>
@@ -127,8 +129,9 @@ const MyAccountPwUpdate = () => {
                 <input
                   type="password"
                   name="memberPasswordReNew"
+                  maxLength={15}
                   value={formData.memberPasswordReNew}
-                  placeholder='8~16文字の英文、数字、特殊文字を組み合わせ'
+                  placeholder='8~15文字の英文、数字、特殊文字を組み合わせ'
                   onChange={handleChange}
                 />
               </td>

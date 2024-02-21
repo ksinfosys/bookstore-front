@@ -42,7 +42,7 @@ const App = () => {
 
           <Route path="/myaccount/checkpassword" element={<MyPageCheckPw />} />
 
-          <Route path="/myaccount/" element={<MyPage />} />
+          <Route path="/myaccount" element={<MyPage />} />
 
           <Route path="/myaccount/update" element={<MyAccountUpdate />} />
 

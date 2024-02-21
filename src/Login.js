@@ -4,6 +4,7 @@ import axios from "axios";
 import { getCookie, setCookie } from './utils/cookie';
 
 const Login = () => {
+
   const [formData, setFormData] = useState({
 
     memberId: '',
@@ -21,6 +22,16 @@ const Login = () => {
   };
 
   const memberLogin = () => {
+
+    if(!formData.memberId){
+      alert("IDを入力してください。")
+      return;
+    }
+    if(!formData.memberPassword){
+      alert("パスワードを入力してください。")
+      return;
+    }
+
     const requestData = {
       memberId: formData.memberId,
       memberPassword: formData.memberPassword,
@@ -93,6 +104,7 @@ const Login = () => {
                 <input
                   type="text"
                   name="memberId"
+                  maxLength={16}
                   value={formData.memberId}
                   onChange={handleChange}
                 />
@@ -104,6 +116,7 @@ const Login = () => {
                 <input
                   type="password"
                   name="memberPassword"
+                  maxLength={15}
                   value={formData.memberPassword}
                   onChange={handleChange}
                 />

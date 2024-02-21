@@ -23,6 +23,11 @@ const MyPageCheckPw = () => {
 
     const confirm = () => {
 
+      if(!formData.memberPassword){
+        alert("パスワードを入力してください。")
+        return;
+      }
+  
         const requestData = {
           memberId: getCookie('memberId'),
           memberCookie: getCookie('memberCookie'),
@@ -129,6 +134,7 @@ const MyPageCheckPw = () => {
                 <input
                   type="password"
                   name="memberPassword"
+                  maxLength={15}
                   value={formData.memberPassword}
                   onChange={handleChange}
                 />

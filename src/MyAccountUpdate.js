@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './css/Join.css';
 import axios from "axios";
 import { getCookie } from './utils/cookie';
+import Post from './Post';
 
 const MyAccountUpdate = () => {
 
@@ -112,6 +113,24 @@ const MyAccountUpdate = () => {
   };
 
   const memberMyAccountUpdate = () => {
+
+    if(!/^[a-zA-Z\u3040-\u30FF\u3131-\uD79D]+$/.test(formData.memberName)){
+      alert("文字で入力してください。")
+      return;
+    }
+    if(!(formData.memberEmailId || formData.memberEmailAddress)){
+      alert("メールを入力してください。")
+      return;
+    }
+    if(!/^\d+$/.test(formData.memberPhone1 && formData.memberPhone2 && formData.memberPhone3)) {
+      alert("数字で入力してください。")
+      return;
+    }
+    if(!(enroll_company.postcode && enroll_company.address && formData.address.memberDetailedAddress)){
+      alert("住所を入力してください。")
+      return;
+    }
+    
     const requestData = {
           memberId: getCookie('memberId'),
           memberCookie: getCookie('memberCookie'),
@@ -121,8 +140,8 @@ const MyAccountUpdate = () => {
       memberPhone1: formData.memberPhone1,
       memberPhone2: formData.memberPhone2,
       memberPhone3: formData.memberPhone3,
-      memberPostalCode: formData.address.memberPostalCode,
-      memberPostAddress: formData.address.memberPostAddress,
+      memberPostalCode: enroll_company.postcode,
+      memberPostAddress: enroll_company.address,
       memberDetailedAddress: formData.address.memberDetailedAddress,
     };
 
@@ -148,17 +167,36 @@ const MyAccountUpdate = () => {
     console.log('GO BACK BUTTON CLICK');
   };
 
-  const handleSearchPostalCode = () => {
-    // add search code 
-    console.log('SEARCH BUTTON CLICK.');
-  };
+  const handleComplete = (data) => {
+    setPopup(!popup);
+}
 
   const handleDelete = () => {
     window.location.href = '/myaccount/delete';
     console.log('DELETE BUTTON CLICK.');
   };
 
+  const [enroll_company, setEnroll_company] = useState({
+    address:'',
+    postcode:''
+  });
+  
+  const [popup, setPopup] = useState(false);
+  
+  const handleInput = (e) => {
+    setEnroll_company({
+        ...enroll_company,
+          [e.target.name]:e.target.value,
+      })
+  }
+
   return (
+
+<div>
+
+    <div className="address_search" >
+      {popup && <Post company={enroll_company} setcompany={setEnroll_company}></Post>}
+    </div>
 
     <div className="app-container">
         <table className='app-container'>
@@ -187,6 +225,7 @@ const MyAccountUpdate = () => {
                 <input
                   type="text"
                   name="memberEmailId"
+                  maxLength={20}
                   value={formData.memberEmailId}
                   onChange={handleChange}
                 />
@@ -195,6 +234,7 @@ const MyAccountUpdate = () => {
                 <input
                   type="text"
                   name="memberEmailAddress"
+                  maxLength={20}
                   value={formData.memberEmailAddress}
                   onChange={handleChange}
                   placeholder='直接入力します'
@@ -226,6 +266,7 @@ const MyAccountUpdate = () => {
                 <input
                   type="text"
                   name="memberPhone1"
+                  maxLength={4}
                   value={formData.memberPhone1}
                   onChange={handleChange}
                 />
@@ -234,6 +275,7 @@ const MyAccountUpdate = () => {
                 <input
                   type="text"
                   name="memberPhone2"
+                  maxLength={4}
                   value={formData.memberPhone2}
                   onChange={handleChange}
                 />
@@ -242,6 +284,7 @@ const MyAccountUpdate = () => {
                 <input
                   type="text"
                   name="memberPhone3"
+                  maxLength={4}
                   value={formData.memberPhone3}
                   onChange={handleChange}
                 />
@@ -254,16 +297,13 @@ const MyAccountUpdate = () => {
                   type="text"
                   name="address.memberPostalCode"
                   placeholder="POSTAL CODE"
-                  value={formData.address.memberPostalCode}
-                  onChange={handleChange}
+                  value={enroll_company.postcode}
+                  readOnly
                 />
                 <span className='sign'></span>
-                <button
-                  type="search"
-                  onClick={handleSearchPostalCode}
-                >
-                  SEARCH
-                </button>
+
+                <button type="search" onClick={handleComplete}>SEARCH</button>
+
               </td>
             </tr>
             <tr>
@@ -272,8 +312,8 @@ const MyAccountUpdate = () => {
                   type="text"
                   name="address.memberPostAddress"
                   placeholder="POST ADDRESS"
-                  value={formData.address.memberPostAddress}
-                  onChange={handleChange}
+                  value={enroll_company.address}
+                  readOnly
                 />
               </td>
             </tr>
@@ -283,6 +323,7 @@ const MyAccountUpdate = () => {
                   type="text"
                   name="address.memberDetailedAddress"
                   placeholder="DETAILED ADDRESS"
+                  maxLength={20}
                   value={formData.address.memberDetailedAddress}
                   onChange={handleChange}
                 />
@@ -297,6 +338,8 @@ const MyAccountUpdate = () => {
 
         <button type="button" onClick={handleGoBack}>GO BACK</button>
         <button type="button" onClick={handleDelete}>DELETE</button>
+    </div>
+
     </div>
   );
 };

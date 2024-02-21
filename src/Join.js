@@ -73,6 +73,64 @@ const Join = () => {
   };
 
   const memberJoin = () => {
+
+    if(!formData.memberName){
+      alert("名前を入力してください。")
+      return;
+    }
+    if(!/^[a-zA-Z\u3040-\u30FF\u3131-\uD79D]+$/.test(formData.memberName)){
+      alert("文字で入力してください。")
+      return;
+    }
+    if(!(formData.memberEmailId || formData.memberEmailAddress)){
+      alert("メールを入力してください。")
+      return;
+    }
+    if(!formData.memberId){
+      alert("IDを入力してください。")
+      return;
+    }
+    if(!/^[a-zA-Z0-9]{1,16}$/.test(formData.memberId)){
+      alert("英数字の組み合わせを16桁以下で入力してください。")
+      return;
+    }
+    if(!formData.memberPassword){
+      alert("パスワードを入力してください。")
+      return;
+    }
+    if(!formData.memberPasswordRe){
+      alert("REパスワードを入力してください。")
+      return;
+    }
+    if(formData.memberPassword !== formData.memberPasswordRe){
+      alert("パスワードが一致しません。")
+      return;
+    }
+    if(!/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,15}$/.test(formData.memberPassword || formData.memberPasswordRe)){
+      alert("パスワードは数字、文字、特殊文字を含めて8~15桁以内で入力してください。")
+      return;
+    }
+    if(!(formData.memberPhone1 && formData.memberPhone2 && formData.memberPhone3)) {
+      alert("電話番号を入力してください。")
+      return;
+    }
+    if(!/^\d+$/.test(formData.memberPhone1 && formData.memberPhone2 && formData.memberPhone3)) {
+      alert("数字で入力してください。")
+      return;
+    }
+    if(!(formData.memberBirthYear && formData.memberBirthMonth && formData.memberBirthDay)){
+      alert("生年月日を入力してください。")
+      return;
+    }
+    if(!formData.memberGender){
+      alert("性別を選択してください。")
+      return;
+    }
+    if(!(enroll_company.postcode && enroll_company.address && formData.address.memberDetailedAddress)){
+      alert("住所を入力してください。")
+      return;
+    }
+
     const requestData = {
       memberName: formData.memberName,
       memberEmailId: formData.memberEmailId,
@@ -220,6 +278,7 @@ const Join = () => {
                 <input
                   type="text"
                   name="memberName"
+                  maxLength={20}
                   value={formData.memberName}
                   onChange={handleChange}
                 />
@@ -231,6 +290,7 @@ const Join = () => {
                 <input
                   type="text"
                   name="memberEmailId"
+                  maxLength={20}
                   value={formData.memberEmailId}
                   onChange={handleChange}
                 />
@@ -239,6 +299,7 @@ const Join = () => {
                 <input
                   type="text"
                   name="memberEmailAddress"
+                  maxLength={20}
                   value={formData.memberEmailAddress}
                   onChange={handleChange}
                   placeholder='直接入力します'
@@ -262,6 +323,7 @@ const Join = () => {
                 <input
                   type="text"
                   name="memberId"
+                  maxLength={16}
                   value={formData.memberId}
                   onChange={handleChange}
                   placeholder='(英)文字/数字'
@@ -281,6 +343,7 @@ const Join = () => {
                 <input
                   type="password"
                   name="memberPassword"
+                  maxLength={15}
                   value={formData.memberPassword}
                   onChange={handleChange}
                   placeholder='8~16文字の英文、数字、特殊文字を組み合わせ'
@@ -293,6 +356,7 @@ const Join = () => {
                 <input
                   type="password"
                   name="memberPasswordRe"
+                  maxLength={15}
                   value={formData.memberPasswordRe}
                   onChange={handleChange}
                 />
@@ -304,6 +368,7 @@ const Join = () => {
                 <input
                   type="text"
                   name="memberPhone1"
+                  maxLength={4}
                   value={formData.memberPhone1}
                   onChange={handleChange}
                 />
@@ -312,6 +377,7 @@ const Join = () => {
                 <input
                   type="text"
                   name="memberPhone2"
+                  maxLength={4}
                   value={formData.memberPhone2}
                   onChange={handleChange}
                 />
@@ -320,6 +386,7 @@ const Join = () => {
                 <input
                   type="text"
                   name="memberPhone3"
+                  maxLength={4}
                   value={formData.memberPhone3}
                   onChange={handleChange}
                 />
@@ -414,6 +481,7 @@ const Join = () => {
                   type="text"
                   name="address.memberDetailedAddress"
                   placeholder="DETAILED ADDRESS"
+                  maxLength={20}
                   value={formData.address.memberDetailedAddress}
                   onChange={handleChange}
                 />
@@ -425,11 +493,8 @@ const Join = () => {
                 onClick={() => {memberJoin();}}
         >  
           CONFIRM</button>
-
         <button type="button" onClick={handleGoBack}>GO BACK</button>
-
     </div>
-
 </div>
   );
 };
