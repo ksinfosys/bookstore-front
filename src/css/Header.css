@@ -1,0 +1,37 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: black;
+    color: white;
+}
+
+.left-menu{
+    display: flex;
+    margin-left: 150px;
+}
+
+.right-menu{
+    margin-right: 150px;
+    display: flex;
+}
+
+.left-menu a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.right-menu a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.left-menu a:hover, .right-menu a:hover{
+
+    color: red;
+}
